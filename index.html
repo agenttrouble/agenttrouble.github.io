@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agent Trouble</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</head>
+<body style="background-color: #fff59d;">
+    <div class="flow-text" style="margin-top: 50px; height: 300px; width: 300px; margin-left: auto; margin-right: auto; text-align: center; font-size: 30px;">
+
+        <div id="start" style="display: inline-block;">
+            Nombre de joueur : <input type="number" id="nbjoueur" name="nbjoueur"> <button onclick="go()" class="waves-effect waves-light btn">GO</button>  
+        </div>
+
+
+        <div id="attribution" style="display: none;">
+            
+            <div id="reveal" style="display: none;">
+                <button onclick="reveal()" class="waves-effect waves-light btn">Devoiler le lieu</button> 
+            </div>
+            <div id="revealed" style="display: none;">
+                <div id="role"></div>
+                <br>
+                <button onclick="next()" class="waves-effect waves-light btn">Suivant</button> 
+            </div>
+            <div id="end" style="display: none;">
+                <div>Fin</div>
+                <br>
+                <button onclick="reset()" class="waves-effect waves-light btn">Reset</button> 
+            </div>
+
+            
+        </div>
+    </div>
+
+
+
+<script type="text/javascript">
+    
+lieux = ["Ambassade", "Avion", "Banque", "Carnaval", "Casino", "Cirque", "Garage", "Hopital","Parc d'attraction", "Plage", "Sous-marin", "Station polaire", "Supermarche", "Centre de thalasso", "Theatre", "Base militaire", "Croisade", "Bateau pirate", "Boite de nuit", "Ecole", "Fete d'entreprise", "Hotel", "Paquebot", "Poste de police", "Restaurant", "Station spatiale", "Studio de cinéma", "Train", "Université", "Zoo"];
+current = 0;
+nbjoueur =  0;
+lieu = "";
+spy = 0;
+
+function go(){
+    current = 0;
+    nbjoueur = document.getElementById("nbjoueur").value;
+    lieu = lieux[Math.floor(Math.random() * lieux.length)];
+    spy = Math.floor(Math.random() * nbjoueur);
+
+    document.getElementById("start").style.display = "none";
+    document.getElementById("attribution").style.display = "inline-block";
+    document.getElementById("reveal").style.display = "inline-block";
+}
+function reveal(){
+    document.getElementById("reveal").style.display = "none";
+    document.getElementById("revealed").style.display = "inline-block";
+    if(current == spy){
+        document.getElementById("role").innerHTML = "Espion";    
+    }else{
+        document.getElementById("role").innerHTML = lieu;    
+    }
+
+
+
+    current = current + 1;
+}
+function next(){
+    document.getElementById("revealed").style.display = "none";
+    document.getElementById("reveal").style.display = "inline-block";
+    document.getElementById("role").innerHTML = "";
+
+    if(current == nbjoueur){
+        document.getElementById("reveal").style.display = "none";
+        document.getElementById("revealed").style.display = "none";
+        document.getElementById("end").style.display = "inline-block";
+    }
+}
+function reset(){
+    current = 0;
+    nbjoueur =  0;
+    lieu = "";
+    spy = 0;
+    document.getElementById("start").style.display = "inline-block";
+    document.getElementById("attribution").style.display = "none";
+    document.getElementById("end").style.display = "none";
+}
+
+
+</script>
+
+</body>
+</html>
